@@ -155,6 +155,19 @@
         .input-group {
             position: relative;
         }
+
+        .debug-info {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 0.75rem;
+            color: #4CAF50;
+            max-width: 300px;
+            word-break: break-all;
+        }
     </style>
 </head>
 <body>
@@ -212,19 +225,42 @@
             </form>
 
             <div class="back-link">
-                <a href="index.html">
+                <a href="/">
                     <i class="fas fa-arrow-left me-2"></i>Back to Home
                 </a>
             </div>
         </div>
     </div>
 
+    <!-- Debug info (remove in production) -->
+    <div class="debug-info" id="debugInfo"></div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // API_URL is injected from server environment via window.ENV
-        const API_URL = window.ENV?.API_URL || 'http://localhost:3332/api';
+        // Auto-detect API URL based on current domain
+        function getApiUrl() {
+            // If window.ENV is injected by server, use it
+            if (window.ENV && window.ENV.API_URL) {
+                return window.ENV.API_URL;
+            }
+
+            // Otherwise, construct from current location
+            const protocol = window.location.protocol; // http: or https:
+            const host = window.location.host; // domain.com or localhost:3332
+            
+            return `${protocol}//${host}/api`;
+        }
+
+        const API_URL = getApiUrl();
         
-        console.log('Using API URL:', API_URL);
+        // Show debug info
+        document.getElementById('debugInfo').innerHTML = `
+            <strong>API URL:</strong><br>${API_URL}<br>
+            <strong>Host:</strong><br>${window.location.host}
+        `;
+        
+        console.log('🔧 Using API URL:', API_URL);
+        console.log('🌐 Current host:', window.location.host);
 
         function togglePassword() {
             const passwordInput = document.getElementById('password');
@@ -272,6 +308,8 @@
             const btnText = document.getElementById('btnText');
             const btnSpinner = document.getElementById('btnSpinner');
 
+            console.log('🔐 Attempting login to:', `${API_URL}/admin/login`);
+
             // Disable button and show spinner
             loginBtn.disabled = true;
             btnText.classList.add('d-none');
@@ -287,6 +325,7 @@
                 });
 
                 const data = await response.json();
+                console.log('📥 Login response:', data);
 
                 if (data.success) {
                     // Save token to localStorage
@@ -297,14 +336,14 @@
 
                     // Redirect to dashboard
                     setTimeout(() => {
-                        window.location.href = 'admin-dashboard.html';
+                        window.location.href = '/admin/dashboard';
                     }, 1000);
                 } else {
                     showAlert(data.message || 'Login failed. Please try again.');
                 }
             } catch (error) {
-                console.error('Login error:', error);
-                showAlert('Connection error. Please check your network and try again.');
+                console.error('❌ Login error:', error);
+                showAlert(`Connection error: ${error.message}. Check console for details.`);
             } finally {
                 // Re-enable button
                 loginBtn.disabled = false;
@@ -317,6 +356,7 @@
         window.addEventListener('DOMContentLoaded', () => {
             const token = localStorage.getItem('adminToken');
             if (token) {
+                console.log('🔑 Found existing token, verifying...');
                 // Verify token is still valid
                 fetch(`${API_URL}/admin/verify`, {
                     headers: {
@@ -325,11 +365,18 @@
                 })
                 .then(res => res.json())
                 .then(data => {
+                    console.log('✅ Token verification:', data);
                     if (data.success) {
-                        window.location.href = 'admin-dashboard.html';
+                        console.log('✅ Token valid, redirecting to dashboard');
+                        window.location.href = '/admin/dashboard';
+                    } else {
+                        console.log('⚠️ Token invalid, clearing');
+                        localStorage.removeItem('adminToken');
+                        localStorage.removeItem('adminData');
                     }
                 })
-                .catch(() => {
+                .catch((error) => {
+                    console.error('❌ Token verification error:', error);
                     // Token invalid, clear it
                     localStorage.removeItem('adminToken');
                     localStorage.removeItem('adminData');
