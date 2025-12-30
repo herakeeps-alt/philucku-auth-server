@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Philucky - App Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #FFD700;
+            --secondary-color: #FF6B6B;
+            --dark-bg: #1a1a2e;
+            --card-bg: #16213e;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --success: #4CAF50;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--card-bg) 100%);
+            color: var(--text-primary);
+            padding-bottom: 20px;
+        }
+
+        .header {
+            background: var(--card-bg);
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .welcome-card {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: var(--dark-bg);
+        }
+
+        .welcome-card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .welcome-card p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .section {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid rgba(255, 215, 0, 0.2);
+            padding-bottom: 10px;
+        }
+
+        .section-title i {
+            margin-right: 10px;
+            font-size: 1.8rem;
+        }
+
+        .step-list {
+            list-style: none;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .step-number {
+            background: var(--primary-color);
+            color: var(--dark-bg);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .step-content h3 {
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .step-content p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        @media (min-width: 600px) {
+            .feature-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(255, 215, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .feature-card h3 {
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+        }
+
+        .faq-question {
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 1.05rem;
+        }
+
+        .faq-answer {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .alert-box {
+            background: rgba(255, 215, 0, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .alert-box strong {
+            color: var(--primary-color);
+        }
+
+        .contact-card {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 107, 107, 0.1) 100%);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .contact-btn {
+            background: var(--primary-color);
+            color: var(--dark-bg);
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.3s;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .badge {
+            background: var(--success);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-left: 8px;
+        }
+
+        .demo-section {
+            background: rgba(76, 175, 80, 0.1);
+            border: 2px solid var(--success);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .demo-section h3 {
+            color: var(--success);
+            margin-bottom: 10px;
+        }
+
+        .demo-credentials {
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .demo-credentials code {
+            color: var(--primary-color);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1><i class="fas fa-dice"></i> Philucky</h1>
+        <p>Your Lucky Gaming Platform</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Welcome Section -->
+        <div class="welcome-card">
+            <h2>👋 Welcome to Philucky!</h2>
+            <p>Follow this guide to get started with our gaming platform</p>
+        </div>
+
+        <!-- Getting Started -->
+        <div class="section">
+            <div class="section-title">
+                <i class="fas fa-rocket"></i>
+                Getting Started
+            </div>
+            <ol class="step-list">
+                <li class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Create Your Account</h3>
+                        <p>Tap on "Sign Up" and enter your phone number, password, and optional email. Your account will be pending approval.</p>
+                    </div>
+                </li>
+                <li class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Wait for Approval</h3>
+                        <p>Our team will review and approve your account within 24-48 hours. You'll be able to login once approved.</p>
+                    </div>
+                </li>
+                <li class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Login & Play</h3>
+                        <p>Use your phone number or email to login. Once approved, you'll have access to all our games!</p>
+                    </div>
+                </li>
+            </ol>
+
+            <div class="alert-box">
+                <strong><i class="fas fa-info-circle"></i> Important:</strong> You can login with either your phone number OR email address.
+            </div>
+        </div>
+
+        <!-- Try Guide Mode -->
+        <div class="section">
+            <div class="section-title">
+                <i class="fas fa-book-open"></i>
+                Try Guide Mode <span class="badge">FREE</span>
+            </div>
+            <p style="color: var(--text-secondary); margin-bottom: 20px;">
+                Not sure how to play? Try our Guide Mode to learn the rules of each game before playing for real money.
+            </p>
+
+            <div class="demo-section">
+                <h3><i class="fas fa-graduation-cap"></i> Demo Account</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 10px;">
+                    Use these credentials to access Guide Mode instantly:
+                </p>
+                <div class="demo-credentials">
+                    <p><strong>Phone:</strong> <code>1231237777</code></p>
+                    <p><strong>Email:</strong> <code>demo@philucky.com</code></p>
+                    <p><strong>Password:</strong> <code>Qqqwww888</code></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features -->
+        <div class="section">
+            <div class="section-title">
+                <i class="fas fa-star"></i>
+                Key Features
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h3>Multiple Games</h3>
+                    <p>Slots, card games, roulette, and more</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Secure & Safe</h3>
+                    <p>Your data is protected with enterprise security</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Mobile First</h3>
+                    <p>Optimized for mobile gaming experience</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>24/7 Support</h3>
+                    <p>We're here to help anytime you need</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- How to Play -->
+        <div class="section">
+            <div class="section-title">
+                <i class="fas fa-play-circle"></i>
+                How to Play
+            </div>
+            <ol class="step-list">
+                <li class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Choose a Game</h3>
+                        <p>Browse through our collection of games and select one that interests you.</p>
+                    </div>
+                </li>
+                <li class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Learn the Rules</h3>
+                        <p>Each game has its own rules. Use Guide Mode to practice without risking real money.</p>
+                    </div>
+                </li>
+                <li class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Place Your Bet</h3>
+                        <p>Choose your bet amount and start playing. Always play responsibly!</p>
+                    </div>
+                </li>
+                <li class="step-item">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Win & Withdraw</h3>
+                        <p>When you win, your balance is updated instantly. Withdraw your winnings anytime.</p>
+                    </div>
+                </li>
+            </ol>
+        </div>
+
+        <!-- FAQ -->
+        <div class="section">
+            <div class="section-title">
+                <i class="fas fa-question-circle"></i>
+                Frequently Asked Questions
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-chevron-right"></i> How long does approval take?
+                </div>
+                <div class="faq-answer">
+                    Account approval typically takes 24-48 hours. Our team reviews each registration to ensure platform security.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-chevron-right"></i> Can I login with email or phone?
+                </div>
+                <div class="faq-answer">
+                    Yes! You can login using either your phone number or email address that you registered with.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-chevron-right"></i> Is there a demo mode?
+                </div>
+                <div class="faq-answer">
+                    Absolutely! Use the demo account credentials above to access Guide Mode and learn how to play without spending money.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-chevron-right"></i> How do I add funds?
+                </div>
+                <div class="faq-answer">
+                    Once your account is approved, you can add funds using M-Pesa or other supported payment methods directly in the app.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-chevron-right"></i> What if I forget my password?
+                </div>
+                <div class="faq-answer">
+                    Contact our support team and we'll help you reset your password securely.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-chevron-right"></i> Are my winnings guaranteed?
+                </div>
+                <div class="faq-answer">
+                    Yes! All winnings are credited to your account immediately and can be withdrawn at any time.
+                </div>
+            </div>
+        </div>
+
+        <!-- Responsible Gaming -->
+        <div class="section">
+            <div class="section-title">
+                <i class="fas fa-exclamation-triangle"></i>
+                Responsible Gaming
+            </div>
+            <div class="alert-box">
+                <strong><i class="fas fa-heart"></i> Play Responsibly:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px; color: var(--text-secondary);">
+                    <li>Set a budget and stick to it</li>
+                    <li>Never chase losses</li>
+                    <li>Take regular breaks</li>
+                    <li>Gaming should be fun, not stressful</li>
+                    <li>Seek help if gambling becomes a problem</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Support -->
+        <div class="section">
+            <div class="section-title">
+                <i class="fas fa-life-ring"></i>
+                Need Help?
+            </div>
+            <div class="contact-card">
+                <h3 style="margin-bottom: 10px;">We're Here to Help!</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 15px;">
+                    Contact our support team anytime for assistance
+                </p>
+                <div class="contact-links">
+                    <a href="mailto:support@philucky.com" class="contact-btn">
+                        <i class="fas fa-envelope"></i> Email Us
+                    </a>
+                    <a href="tel:+254700000000" class="contact-btn">
+                        <i class="fas fa-phone"></i> Call Us
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="text-align: center; padding: 20px; color: var(--text-secondary); font-size: 0.9rem;">
+            <p>&copy; 2025 Philucky. All rights reserved.</p>
+            <p style="margin-top: 10px;">
+                <a href="#" style="color: var(--primary-color); text-decoration: none; margin: 0 10px;">Privacy Policy</a>
+                <a href="#" style="color: var(--primary-color); text-decoration: none; margin: 0 10px;">Terms of Service</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Philucky</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #FFD700;
+            --secondary-color: #FF6B6B;
+            --dark-bg: #1a1a2e;
+            --card-bg: #16213e;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --success: #4CAF50;
+            --danger: #f44336;
+            --warning: #ff9800;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 250px;
+            background: var(--card-bg);
+            border-right: 1px solid rgba(255, 215, 0, 0.1);
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            padding: 25px 20px;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+        }
+
+        .sidebar-header h4 {
+            color: var(--primary-color);
+            margin: 0;
+            font-weight: bold;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary-color);
+            background: rgba(255, 215, 0, 0.1);
+            border-left-color: var(--primary-color);
+        }
+
+        .nav-link i {
+            margin-right: 10px;
+            width: 20px;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 30px;
+        }
+
+        .top-bar {
+            background: var(--card-bg);
+            padding: 20px 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .admin-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .admin-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+            color: var(--dark-bg);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            opacity: 0.8;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .content-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .table {
+            color: var(--text-primary);
+        }
+
+        .table thead th {
+            border-color: rgba(255, 215, 0, 0.2);
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .table tbody td {
+            border-color: rgba(255, 255, 255, 0.1);
+            vertical-align: middle;
+        }
+
+        .badge {
+            padding: 6px 12px;
+            font-weight: 500;
+        }
+
+        .badge-pending {
+            background-color: var(--warning);
+            color: white;
+        }
+
+        .badge-approved {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .badge-rejected {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .btn-action {
+            padding: 5px 12px;
+            font-size: 0.85rem;
+            margin: 2px;
+        }
+
+        .btn-logout {
+            background: var(--danger);
+            border: none;
+            color: white;
+        }
+
+        .btn-logout:hover {
+            background: #d32f2f;
+            color: white;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 50px;
+        }
+
+        .spinner-border {
+            color: var(--primary-color);
+        }
+
+        .settings-form {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 215, 0, 0.1);
+        }
+
+        .settings-form label {
+            color: var(--text-primary);
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .settings-form input {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            color: var(--text-primary);
+            padding: 12px 15px;
+            border-radius: 8px;
+        }
+
+        .settings-form input:focus {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(255, 215, 0, 0.15);
+            color: var(--text-primary);
+        }
+
+        .settings-form input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .url-preview {
+            background: rgba(76, 175, 80, 0.1);
+            border: 1px solid var(--success);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .url-preview a {
+            color: var(--primary-color);
+            text-decoration: none;
+            word-break: break-all;
+        }
+
+        .url-preview a:hover {
+            text-decoration: underline;
+        }
+
+        .alert-custom {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid var(--primary-color);
+            color: var(--text-primary);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h4><i class="fas fa-dice me-2"></i>Philucky</h4>
+        </div>
+        <nav class="nav flex-column">
+            <a class="nav-link active" href="#" data-tab="dashboard">
+                <i class="fas fa-home"></i> Dashboard
+            </a>
+            <a class="nav-link" href="#" data-tab="pending">
+                <i class="fas fa-clock"></i> Pending Users
+            </a>
+            <a class="nav-link" href="#" data-tab="approved">
+                <i class="fas fa-check-circle"></i> Approved Users
+            </a>
+            <a class="nav-link" href="#" data-tab="rejected">
+                <i class="fas fa-times-circle"></i> Rejected Users
+            </a>
+            <a class="nav-link" href="#" data-tab="all">
+                <i class="fas fa-users"></i> All Users
+            </a>
+            <a class="nav-link" href="#" data-tab="settings">
+                <i class="fas fa-cog"></i> Settings
+            </a>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="admin-info">
+                <div class="admin-avatar" id="adminAvatar"></div>
+                <div>
+                    <h5 class="mb-0" id="adminName">Admin</h5>
+                    <small class="text-secondary" id="adminRole">Administrator</small>
+                </div>
+            </div>
+            <button class="btn btn-logout btn-sm" onclick="logout()">
+                <i class="fas fa-sign-out-alt me-2"></i>Logout
+            </button>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="stats-grid" id="statsContainer">
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <span class="stat-label">Total Users</span>
+                    <i class="fas fa-users stat-icon text-primary"></i>
+                </div>
+                <div class="stat-value" id="totalUsers">-</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <span class="stat-label">Pending Approval</span>
+                    <i class="fas fa-clock stat-icon text-warning"></i>
+                </div>
+                <div class="stat-value" id="pendingUsers">-</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <span class="stat-label">Approved Users</span>
+                    <i class="fas fa-check-circle stat-icon text-success"></i>
+                </div>
+                <div class="stat-value" id="approvedUsers">-</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <span class="stat-label">Active Users</span>
+                    <i class="fas fa-user-check stat-icon" style="color: var(--primary-color)"></i>
+                </div>
+                <div class="stat-value" id="activeUsers">-</div>
+            </div>
+        </div>
+
+        <!-- Users Content Card -->
+        <div class="content-card" id="usersSection">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 id="sectionTitle">All Users</h4>
+                <button class="btn btn-sm btn-outline-warning" onclick="refreshData()">
+                    <i class="fas fa-sync-alt me-2"></i>Refresh
+                </button>
+            </div>
+
+            <div id="loadingContainer" class="loading d-none">
+                <div class="spinner-border" role="status"></div>
+                <p class="mt-3 text-secondary">Loading users...</p>
+            </div>
+
+            <div id="usersContainer">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Phone</th>
+                                <th>Email</th>
+                                <th>Status</th>
+                                <th>Balance</th>
+                                <th>Registered</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTable">
+                            <tr>
+                                <td colspan="7" class="text-center text-secondary">No users found</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Content Card -->
+        <div class="content-card d-none" id="settingsSection">
+            <h4 class="mb-4"><i class="fas fa-cog me-2"></i>App Settings</h4>
+            
+            <div class="alert-custom">
+                <strong><i class="fas fa-info-circle me-2"></i>WebView URL:</strong>
+                This URL will be opened in the mobile app WebView after users login successfully.
+            </div>
+
+            <div class="settings-form">
+                <form id="settingsForm">
+                    <div class="mb-4">
+                        <label for="webviewUrl" class="form-label">
+                            <i class="fas fa-link me-2"></i>WebView URL
+                        </label>
+                        <input 
+                            type="url" 
+                            class="form-control" 
+                            id="webviewUrl" 
+                            placeholder="https://example.com/app-guide"
+                            required
+                        >
+                        <small class="text-secondary d-block mt-2">
+                            Enter the full URL including https://
+                        </small>
+                    </div>
+
+                    <div class="url-preview" id="urlPreview" style="display: none;">
+                        <strong class="text-success"><i class="fas fa-check-circle me-2"></i>Current URL:</strong>
+                        <div class="mt-2">
+                            <a href="#" target="_blank" id="currentUrlLink"></a>
+                        </div>
+                        <small class="text-secondary d-block mt-2">
+                            Last updated: <span id="lastUpdated">-</span>
+                        </small>
+                    </div>
+
+                    <div class="mt-4">
+                        <button type="submit" class="btn btn-primary" id="saveSettingsBtn">
+                            <i class="fas fa-save me-2"></i>Save WebView URL
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary ms-2" onclick="testWebViewUrl()">
+                            <i class="fas fa-external-link-alt me-2"></i>Test URL
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="mt-4 p-3" style="background: rgba(255, 255, 255, 0.03); border-radius: 8px;">
+                <h6 class="text-primary mb-3"><i class="fas fa-lightbulb me-2"></i>Quick Options:</h6>
+                <div class="d-flex flex-wrap gap-2">
+                    <button class="btn btn-sm btn-outline-warning" onclick="setQuickUrl('/app-guide')">
+                        <i class="fas fa-book-open me-1"></i>Use App Guide
+                    </button>
+                    <button class="btn btn-sm btn-outline-warning" onclick="setQuickUrl('https://apple.com')">
+                        <i class="fas fa-globe me-1"></i>Use Apple.com (Demo)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const API_URL = 'http://localhost:3332/api';
+        let currentFilter = '';
+        let adminData = {};
+
+        // Check authentication on page load
+        window.addEventListener('DOMContentLoaded', async () => {
+            const token = localStorage.getItem('adminToken');
+            const storedAdminData = localStorage.getItem('adminData');
+
+            if (!token || !storedAdminData) {
+                window.location.href = 'admin-login.html';
+                return;
+            }
+
+            adminData = JSON.parse(storedAdminData);
+            
+            // Update admin info
+            document.getElementById('adminName').textContent = adminData.username;
+            document.getElementById('adminRole').textContent = adminData.role;
+            document.getElementById('adminAvatar').textContent = adminData.username.charAt(0).toUpperCase();
+
+            // Verify token
+            try {
+                const response = await fetchWithAuth(`${API_URL}/admin/verify`);
+                if (!response.success) {
+                    logout();
+                    return;
+                }
+            } catch (error) {
+                logout();
+                return;
+            }
+
+            // Load initial data
+            await loadStats();
+            await loadUsers();
+            await loadSettings();
+
+            // Setup tab navigation
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                    
+                    const tab = link.dataset.tab;
+                    handleTabChange(tab);
+                });
+            });
+
+            // Setup settings form
+            document.getElementById('settingsForm').addEventListener('submit', handleSettingsSave);
+        });
+
+        async function fetchWithAuth(url, options = {}) {
+            const token = localStorage.getItem('adminToken');
+            
+            const response = await fetch(url, {
+                ...options,
+                headers: {
+                    ...options.headers,
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            return await response.json();
+        }
+
+        async function loadStats() {
+            try {
+                const data = await fetchWithAuth(`${API_URL}/admin/stats`);
+                
+                if (data.success) {
+                    document.getElementById('totalUsers').textContent = data.data.totalUsers;
+                    document.getElementById('pendingUsers').textContent = data.data.pendingUsers;
+                    document.getElementById('approvedUsers').textContent = data.data.approvedUsers;
+                    document.getElementById('activeUsers').textContent = data.data.activeUsers;
+                }
+            } catch (error) {
+                console.error('Error loading stats:', error);
+            }
+        }
+
+        async function loadSettings() {
+            try {
+                const data = await fetchWithAuth(`${API_URL}/admin/settings`);
+                
+                if (data.success && data.data.webViewUrl) {
+                    const webViewUrl = data.data.webViewUrl.value;
+                    const updatedAt = new Date(data.data.webViewUrl.updatedAt).toLocaleString();
+                    
+                    document.getElementById('webviewUrl').value = webViewUrl;
+                    document.getElementById('currentUrlLink').href = webViewUrl;
+                    document.getElementById('currentUrlLink').textContent = webViewUrl;
+                    document.getElementById('lastUpdated').textContent = updatedAt;
+                    document.getElementById('urlPreview').style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error loading settings:', error);
+            }
+        }
+
+        async function loadUsers(status = '') {
+            const loadingContainer = document.getElementById('loadingContainer');
+            const usersContainer = document.getElementById('usersContainer');
+            
+            loadingContainer.classList.remove('d-none');
+            usersContainer.classList.add('d-none');
+
+            try {
+                const url = status ? `${API_URL}/admin/users?status=${status}` : `${API_URL}/admin/users`;
+                const data = await fetchWithAuth(url);
+
+                if (data.success) {
+                    renderUsers(data.data.users);
+                }
+            } catch (error) {
+                console.error('Error loading users:', error);
+            } finally {
+                loadingContainer.classList.add('d-none');
+                usersContainer.classList.remove('d-none');
+            }
+        }
+
+        function renderUsers(users) {
+            const tbody = document.getElementById('usersTable');
+            
+            if (!users || users.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="text-center text-secondary">No users found</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = users.map(user => `
+                <tr>
+                    <td>${user.username || 'N/A'}</td>
+                    <td>${user.phone}</td>
+                    <td>${user.email || 'N/A'}</td>
+                    <td><span class="badge badge-${user.status}">${user.status.toUpperCase()}</span></td>
+                    <td>KES ${user.balance.toFixed(2)}</td>
+                    <td>${new Date(user.createdAt).toLocaleDateString()}</td>
+                    <td>
+                        ${user.status === 'pending' ? `
+                            <button class="btn btn-success btn-sm btn-action" onclick="approveUser('${user._id}')">
+                                <i class="fas fa-check"></i> Approve
+                            </button>
+                            <button class="btn btn-danger btn-sm btn-action" onclick="rejectUser('${user._id}')">
+                                <i class="fas fa-times"></i> Reject
+                            </button>
+                        ` : user.status === 'approved' ? `
+                            <button class="btn btn-warning btn-sm btn-action" onclick="toggleActive('${user._id}', ${user.isActive})">
+                                <i class="fas fa-${user.isActive ? 'ban' : 'check'}"></i> ${user.isActive ? 'Deactivate' : 'Activate'}
+                            </button>
+                        ` : `
+                            <button class="btn btn-success btn-sm btn-action" onclick="approveUser('${user._id}')">
+                                <i class="fas fa-check"></i> Approve
+                            </button>
+                        `}
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        async function approveUser(userId) {
+            if (!confirm('Are you sure you want to approve this user?')) return;
+
+            try {
+                const data = await fetchWithAuth(`${API_URL}/admin/users/${userId}/approve`, {
+                    method: 'PUT',
+                });
+
+                if (data.success) {
+                    alert('User approved successfully!');
+                    await loadStats();
+                    await loadUsers(currentFilter);
+                } else {
+                    alert(data.message || 'Failed to approve user');
+                }
+            } catch (error) {
+                console.error('Error approving user:', error);
+                alert('Error approving user. Please try again.');
+            }
+        }
+
+        async function rejectUser(userId) {
+            if (!confirm('Are you sure you want to reject this user?')) return;
+
+            try {
+                const data = await fetchWithAuth(`${API_URL}/admin/users/${userId}/reject`, {
+                    method: 'PUT',
+                });
+
+                if (data.success) {
+                    alert('User rejected successfully!');
+                    await loadStats();
+                    await loadUsers(currentFilter);
+                } else {
+                    alert(data.message || 'Failed to reject user');
+                }
+            } catch (error) {
+                console.error('Error rejecting user:', error);
+                alert('Error rejecting user. Please try again.');
+            }
+        }
+
+        async function toggleActive(userId, currentState) {
+            const action = currentState ? 'deactivate' : 'activate';
+            if (!confirm(`Are you sure you want to ${action} this user?`)) return;
+
+            try {
+                const data = await fetchWithAuth(`${API_URL}/admin/users/${userId}/toggle-active`, {
+                    method: 'PUT',
+                });
+
+                if (data.success) {
+                    alert(`User ${action}d successfully!`);
+                    await loadStats();
+                    await loadUsers(currentFilter);
+                } else {
+                    alert(data.message || `Failed to ${action} user`);
+                }
+            } catch (error) {
+                console.error(`Error ${action}ing user:`, error);
+                alert(`Error ${action}ing user. Please try again.`);
+            }
+        }
+
+        function handleTabChange(tab) {
+            // Hide/show sections
+            document.getElementById('usersSection').classList.add('d-none');
+            document.getElementById('settingsSection').classList.add('d-none');
+            document.getElementById('statsContainer').style.display = 'grid';
+
+            if (tab === 'settings') {
+                document.getElementById('settingsSection').classList.remove('d-none');
+                document.getElementById('statsContainer').style.display = 'none';
+                return;
+            }
+
+            document.getElementById('usersSection').classList.remove('d-none');
+
+            let status = '';
+            let title = 'All Users';
+
+            switch(tab) {
+                case 'pending':
+                    status = 'pending';
+                    title = 'Pending Users';
+                    break;
+                case 'approved':
+                    status = 'approved';
+                    title = 'Approved Users';
+                    break;
+                case 'rejected':
+                    status = 'rejected';
+                    title = 'Rejected Users';
+                    break;
+                case 'all':
+                    status = '';
+                    title = 'All Users';
+                    break;
+                case 'dashboard':
+                    status = '';
+                    title = 'All Users';
+                    break;
+            }
+
+            currentFilter = status;
+            document.getElementById('sectionTitle').textContent = title;
+            loadUsers(status);
+        }
+
+        async function handleSettingsSave(e) {
+            e.preventDefault();
+
+            const url = document.getElementById('webviewUrl').value.trim();
+            const saveBtn = document.getElementById('saveSettingsBtn');
+
+            // Validate URL
+            try {
+                new URL(url);
+            } catch (e) {
+                alert('Please enter a valid URL (including https://)');
+                return;
+            }
+
+            saveBtn.disabled = true;
+            saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Saving...';
+
+            try {
+                const data = await fetchWithAuth(`${API_URL}/admin/settings/webview-url`, {
+                    method: 'PUT',
+                    body: JSON.stringify({ url }),
+                });
+
+                if (data.success) {
+                    alert('WebView URL updated successfully!');
+                    await loadSettings();
+                } else {
+                    alert(data.message || 'Failed to update WebView URL');
+                }
+            } catch (error) {
+                console.error('Error updating settings:', error);
+                alert('Error updating settings. Please try again.');
+            } finally {
+                saveBtn.disabled = false;
+                saveBtn.innerHTML = '<i class="fas fa-save me-2"></i>Save WebView URL';
+            }
+        }
+
+        function setQuickUrl(path) {
+            const baseUrl = window.location.origin;
+            const fullUrl = path.startsWith('http') ? path : baseUrl + path;
+            document.getElementById('webviewUrl').value = fullUrl;
+        }
+
+        function testWebViewUrl() {
+            const url = document.getElementById('webviewUrl').value.trim();
+            if (url) {
+                window.open(url, '_blank');
+            } else {
+                alert('Please enter a URL first');
+            }
+        }
+
+        async function refreshData() {
+            await loadStats();
+            await loadUsers(currentFilter);
+            await loadSettings();
+        }
+
+        function logout() {
+            localStorage.removeItem('adminToken');
+            localStorage.removeItem('adminData');
+            window.location.href = 'admin-login.html';
+        }
+    </script>
+</body>
+</html>
