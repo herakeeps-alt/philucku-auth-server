@@ -11,14 +11,67 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve static files from 'public' directory for admin panel
-app.use(express.static(path.join(__dirname, 'public')));
-
 // Request logging middleware
 app.use((req, res, next) => {
   console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
   next();
 });
+
+// Middleware to inject environment variables into HTML files
+const injectEnvToHtml = (req, res, next) => {
+  const originalSendFile = res.sendFile;
+
+  res.sendFile = function(filePath, options, callback) {
+    // Only process HTML files
+    if (!filePath.endsWith('.html')) {
+      return originalSendFile.call(this, filePath, options, callback);
+    }
+
+    const fs = require('fs');
+    
+    // Read the HTML file
+    fs.readFile(filePath, 'utf8', (err, data) => {
+      if (err) {
+        console.error('Error reading HTML file:', err);
+        return res.status(500).send('Error loading page');
+      }
+
+      // Get API URL from environment or construct from request
+      const apiUrl = process.env.API_URL || `${req.protocol}://${req.get('host')}/api`;
+
+      // Inject API_URL before the first <script> tag
+      let injectedData = data.replace(
+        /<script>/,
+        `<script>
+          // Injected from server environment
+          window.ENV = {
+            API_URL: '${apiUrl}'
+          };
+        </script>
+        <script>`
+      );
+
+      // Send the modified HTML with correct content type
+      res.type('html').send(injectedData);
+    });
+  };
+
+  next();
+};
+
+// Apply env injection middleware
+app.use(injectEnvToHtml);
+
+// Serve static files from 'public' directory (CSS, images, etc.)
+app.use(express.static(path.join(__dirname, 'public'), {
+  setHeaders: (res, filePath) => {
+    // Don't serve HTML files through static middleware
+    // They'll be handled by specific routes with env injection
+    if (filePath.endsWith('.html')) {
+      res.status(404);
+    }
+  }
+}));
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGODB_URI)
@@ -79,10 +132,10 @@ app.get('/', (req, res) => {
         },
       },
       pages: {
-        landingPage: 'http://localhost:3332/',
-        appGuide: 'http://localhost:3332/app-guide',
-        adminLogin: 'http://localhost:3332/admin',
-        adminDashboard: 'http://localhost:3332/admin/dashboard',
+        landingPage: `${req.protocol}://${req.get('host')}/`,
+        appGuide: `${req.protocol}://${req.get('host')}/app-guide`,
+        adminLogin: `${req.protocol}://${req.get('host')}/admin`,
+        adminDashboard: `${req.protocol}://${req.get('host')}/admin/dashboard`,
       },
       note: 'Admin endpoints require JWT token in Authorization header',
     });
@@ -94,7 +147,7 @@ app.get('/app-guide', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'app-guide.html'));
 });
 
-// Admin panel routes (serve HTML files)
+// Admin panel routes (serve HTML files with env injection)
 app.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'admin-login.html'));
 });
@@ -136,7 +189,7 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 3332;
 app.listen(PORT, () => {
   console.log(`\n🚀 Server running on port ${PORT}`);
-  console.log(`📍 API URL: http://localhost:${PORT}`);
+  console.log(`📍 API URL: ${process.env.API_URL || `http://localhost:${PORT}/api`}`);
   console.log(`🌐 Landing Page: http://localhost:${PORT}`);
   console.log(`📱 App Guide: http://localhost:${PORT}/app-guide`);
   console.log(`🔐 Admin Login: http://localhost:${PORT}/admin`);
