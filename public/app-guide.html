@@ -14,6 +14,7 @@
             --text-primary: #ffffff;
             --text-secondary: #a0a0a0;
             --success: #4CAF50;
+            --info: #2196F3;
         }
 
         * {
@@ -206,6 +207,21 @@
             color: var(--primary-color);
         }
 
+        .info-box {
+            background: rgba(33, 150, 243, 0.1);
+            border-left: 4px solid var(--info);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .info-box strong {
+            color: var(--info);
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
         .contact-card {
             background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 107, 107, 0.1) 100%);
             padding: 20px;
@@ -248,31 +264,38 @@
             margin-left: 8px;
         }
 
-        .demo-section {
-            background: rgba(76, 175, 80, 0.1);
-            border: 2px solid var(--success);
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 20px;
+        .website-link {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 20px 0;
         }
 
-        .demo-section h3 {
-            color: var(--success);
-            margin-bottom: 10px;
+        .website-link h3 {
+            color: var(--dark-bg);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
         }
 
-        .demo-credentials {
-            background: var(--card-bg);
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 10px;
-        }
-
-        .demo-credentials code {
+        .website-btn {
+            background: var(--dark-bg);
             color: var(--primary-color);
-            background: rgba(255, 255, 255, 0.05);
-            padding: 2px 8px;
-            border-radius: 4px;
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .website-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
         }
     </style>
 </head>
@@ -280,15 +303,24 @@
     <!-- Header -->
     <div class="header">
         <h1><i class="fas fa-dice"></i> Philucky</h1>
-        <p>Your Lucky Gaming Platform</p>
+        <p>Your Gaming Guide & Learning Platform</p>
     </div>
 
     <!-- Main Content -->
     <div class="container">
         <!-- Welcome Section -->
         <div class="welcome-card">
-            <h2>👋 Welcome to Philucky!</h2>
-            <p>Follow this guide to get started with our gaming platform</p>
+            <h2>👋 Welcome to Philucky Guide!</h2>
+            <p>Learn how to play casino games with our comprehensive guides</p>
+        </div>
+
+        <!-- Important Notice -->
+        <div class="info-box">
+            <strong><i class="fas fa-info-circle"></i> About This App</strong>
+            <p style="color: var(--text-secondary); line-height: 1.6;">
+                This app is designed to help you <strong style="color: var(--text-primary);">learn game rules and strategies</strong> before playing. 
+                No real money is used in this app. To play with real money, visit our main website.
+            </p>
         </div>
 
         <!-- Getting Started -->
@@ -302,21 +334,21 @@
                     <div class="step-number">1</div>
                     <div class="step-content">
                         <h3>Create Your Account</h3>
-                        <p>Tap on "Sign Up" and enter your phone number, password, and optional email. Your account will be pending approval.</p>
+                        <p>Tap on "Sign Up" and enter your phone number, password, and optional email to access the learning guides.</p>
                     </div>
                 </li>
                 <li class="step-item">
                     <div class="step-number">2</div>
                     <div class="step-content">
                         <h3>Wait for Approval</h3>
-                        <p>Our team will review and approve your account within 24-48 hours. You'll be able to login once approved.</p>
+                        <p>Our team will review and approve your account within 24-48 hours to ensure platform security.</p>
                     </div>
                 </li>
                 <li class="step-item">
                     <div class="step-number">3</div>
                     <div class="step-content">
-                        <h3>Login & Play</h3>
-                        <p>Use your phone number or email to login. Once approved, you'll have access to all our games!</p>
+                        <h3>Login & Learn</h3>
+                        <p>Use your phone number or email to login. Once approved, you'll have access to all our game guides and tutorials!</p>
                     </div>
                 </li>
             </ol>
@@ -326,100 +358,130 @@
             </div>
         </div>
 
-        <!-- Try Guide Mode -->
+        <!-- What You'll Learn -->
         <div class="section">
             <div class="section-title">
                 <i class="fas fa-book-open"></i>
-                Try Guide Mode <span class="badge">FREE</span>
+                What You'll Learn <span class="badge">FREE</span>
             </div>
             <p style="color: var(--text-secondary); margin-bottom: 20px;">
-                Not sure how to play? Try our Guide Mode to learn the rules of each game before playing for real money.
+                Master casino games before playing for real money. Our guides cover:
             </p>
 
-            <div class="demo-section">
-                <h3><i class="fas fa-graduation-cap"></i> Demo Account</h3>
-                <p style="color: var(--text-secondary); margin-bottom: 10px;">
-                    Use these credentials to access Guide Mode instantly:
-                </p>
-                <div class="demo-credentials">
-                    <p><strong>Phone:</strong> <code>1231237777</code></p>
-                    <p><strong>Email:</strong> <code>demo@philucky.com</code></p>
-                    <p><strong>Password:</strong> <code>Qqqwww888</code></p>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>Game Rules</h3>
+                    <p>Understand how each game works from start to finish</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Strategies</h3>
+                    <p>Learn winning strategies and best practices</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Odds & Payouts</h3>
+                    <p>Know your chances and potential winnings</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h3>Common Mistakes</h3>
+                    <p>Avoid costly errors made by beginners</p>
                 </div>
             </div>
+        </div>
+
+        <!-- Play for Real Money -->
+        <div class="website-link">
+            <h3><i class="fas fa-globe"></i> Ready to Play for Real?</h3>
+            <p style="color: var(--dark-bg); opacity: 0.9; margin-bottom: 15px;">
+                Visit our main website to play with real money
+            </p>
+            <a href="https://philucky.com" class="website-btn" target="_blank">
+                <i class="fas fa-external-link-alt"></i> Visit Philucky.com
+            </a>
         </div>
 
         <!-- Features -->
         <div class="section">
             <div class="section-title">
                 <i class="fas fa-star"></i>
-                Key Features
+                Guide App Features
             </div>
             <div class="feature-grid">
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-gamepad"></i>
+                        <i class="fas fa-graduation-cap"></i>
                     </div>
-                    <h3>Multiple Games</h3>
-                    <p>Slots, card games, roulette, and more</p>
+                    <h3>Learn at Your Pace</h3>
+                    <p>Take your time to understand each game thoroughly</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-shield-alt"></i>
                     </div>
-                    <h3>Secure & Safe</h3>
-                    <p>Your data is protected with enterprise security</p>
+                    <h3>Risk-Free Learning</h3>
+                    <p>No money involved, just pure education</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-mobile-alt"></i>
                     </div>
-                    <h3>Mobile First</h3>
-                    <p>Optimized for mobile gaming experience</p>
+                    <h3>Mobile Friendly</h3>
+                    <p>Learn anywhere, anytime on your phone</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-headset"></i>
+                        <i class="fas fa-sync-alt"></i>
                     </div>
-                    <h3>24/7 Support</h3>
-                    <p>We're here to help anytime you need</p>
+                    <h3>Updated Content</h3>
+                    <p>Regularly updated with new games and tips</p>
                 </div>
             </div>
         </div>
 
-        <!-- How to Play -->
+        <!-- How to Use the Guides -->
         <div class="section">
             <div class="section-title">
-                <i class="fas fa-play-circle"></i>
-                How to Play
+                <i class="fas fa-map"></i>
+                How to Use the Guides
             </div>
             <ol class="step-list">
                 <li class="step-item">
                     <div class="step-number">1</div>
                     <div class="step-content">
                         <h3>Choose a Game</h3>
-                        <p>Browse through our collection of games and select one that interests you.</p>
+                        <p>Browse through our collection of game guides and select one that interests you.</p>
                     </div>
                 </li>
                 <li class="step-item">
                     <div class="step-number">2</div>
                     <div class="step-content">
-                        <h3>Learn the Rules</h3>
-                        <p>Each game has its own rules. Use Guide Mode to practice without risking real money.</p>
+                        <h3>Read the Rules</h3>
+                        <p>Study the game rules carefully. Take notes if needed and review multiple times.</p>
                     </div>
                 </li>
                 <li class="step-item">
                     <div class="step-number">3</div>
                     <div class="step-content">
-                        <h3>Place Your Bet</h3>
-                        <p>Choose your bet amount and start playing. Always play responsibly!</p>
+                        <h3>Understand Strategies</h3>
+                        <p>Learn the recommended strategies and tips for better gameplay.</p>
                     </div>
                 </li>
                 <li class="step-item">
                     <div class="step-number">4</div>
                     <div class="step-content">
-                        <h3>Win & Withdraw</h3>
-                        <p>When you win, your balance is updated instantly. Withdraw your winnings anytime.</p>
+                        <h3>Practice on Main Site</h3>
+                        <p>When you're ready, visit Philucky.com to practice and play with real money.</p>
                     </div>
                 </li>
             </ol>
@@ -432,6 +494,15 @@
                 Frequently Asked Questions
             </div>
             
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-chevron-right"></i> Is this app for real money gaming?
+                </div>
+                <div class="faq-answer">
+                    No, this app is purely educational. It provides guides and tutorials to help you learn casino games. To play with real money, visit our main website at Philucky.com.
+                </div>
+            </div>
+
             <div class="faq-item">
                 <div class="faq-question">
                     <i class="fas fa-chevron-right"></i> How long does approval take?
@@ -452,19 +523,19 @@
 
             <div class="faq-item">
                 <div class="faq-question">
-                    <i class="fas fa-chevron-right"></i> Is there a demo mode?
+                    <i class="fas fa-chevron-right"></i> Do I need to deposit money?
                 </div>
                 <div class="faq-answer">
-                    Absolutely! Use the demo account credentials above to access Guide Mode and learn how to play without spending money.
+                    No deposits are needed for this guide app. All content is free. When you're ready to play for real money, visit Philucky.com.
                 </div>
             </div>
 
             <div class="faq-item">
                 <div class="faq-question">
-                    <i class="fas fa-chevron-right"></i> How do I add funds?
+                    <i class="fas fa-chevron-right"></i> How do I play with real money?
                 </div>
                 <div class="faq-answer">
-                    Once your account is approved, you can add funds using M-Pesa or other supported payment methods directly in the app.
+                    Visit our main website at Philucky.com where you can create an account, deposit funds using M-Pesa or other payment methods, and start playing.
                 </div>
             </div>
 
@@ -476,15 +547,6 @@
                     Contact our support team and we'll help you reset your password securely.
                 </div>
             </div>
-
-            <div class="faq-item">
-                <div class="faq-question">
-                    <i class="fas fa-chevron-right"></i> Are my winnings guaranteed?
-                </div>
-                <div class="faq-answer">
-                    Yes! All winnings are credited to your account immediately and can be withdrawn at any time.
-                </div>
-            </div>
         </div>
 
         <!-- Responsible Gaming -->
@@ -494,8 +556,9 @@
                 Responsible Gaming
             </div>
             <div class="alert-box">
-                <strong><i class="fas fa-heart"></i> Play Responsibly:</strong>
+                <strong><i class="fas fa-heart"></i> Before Playing for Real Money:</strong>
                 <ul style="margin-top: 10px; margin-left: 20px; color: var(--text-secondary);">
+                    <li>Only play with money you can afford to lose</li>
                     <li>Set a budget and stick to it</li>
                     <li>Never chase losses</li>
                     <li>Take regular breaks</li>
@@ -531,6 +594,7 @@
         <div style="text-align: center; padding: 20px; color: var(--text-secondary); font-size: 0.9rem;">
             <p>&copy; 2025 Philucky. All rights reserved.</p>
             <p style="margin-top: 10px;">
+                <a href="https://philucky.com" style="color: var(--primary-color); text-decoration: none; margin: 0 10px;">Visit Main Site</a>
                 <a href="#" style="color: var(--primary-color); text-decoration: none; margin: 0 10px;">Privacy Policy</a>
                 <a href="#" style="color: var(--primary-color); text-decoration: none; margin: 0 10px;">Terms of Service</a>
             </p>
