@@ -148,8 +148,8 @@ app.get('/app-guide', (req, res) => {
 });
 
 // Privacy policy route
-app.get('/privacy', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'privacy.html'));
+app.get('/privacypolicy', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'privacypolicy.html'));
 });
 
 // Terms and conditions route
