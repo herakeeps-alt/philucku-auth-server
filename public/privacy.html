@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Philucky</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #FFD700;
+            --secondary-color: #FF6B6B;
+            --dark-bg: #1a1a2e;
+            --card-bg: #16213e;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--card-bg) 100%);
+            color: var(--text-primary);
+            padding-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: var(--card-bg);
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .back-button {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 215, 0, 0.1);
+            color: var(--primary-color);
+            padding: 8px 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .back-button:hover {
+            background: var(--primary-color);
+            color: var(--dark-bg);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .last-updated {
+            background: rgba(255, 215, 0, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .last-updated strong {
+            color: var(--primary-color);
+        }
+
+        .section {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .section h2 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid rgba(255, 215, 0, 0.2);
+            padding-bottom: 10px;
+        }
+
+        .section h2 i {
+            margin-right: 10px;
+        }
+
+        .section h3 {
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .section p {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+
+        .section ul, .section ol {
+            color: var(--text-secondary);
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .section li {
+            margin-bottom: 8px;
+        }
+
+        .highlight-box {
+            background: rgba(255, 215, 0, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .highlight-box strong {
+            color: var(--primary-color);
+        }
+
+        .contact-section {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 107, 107, 0.1) 100%);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .contact-section h3 {
+            color: var(--text-primary);
+            margin-bottom: 15px;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .contact-btn {
+            background: var(--primary-color);
+            color: var(--dark-bg);
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.3s;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .toc {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .toc h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin-bottom: 8px;
+        }
+
+        .toc a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .toc a:hover {
+            color: var(--primary-color);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <a href="/app-guide" class="back-button">
+            <i class="fas fa-arrow-left"></i> Back to Guide
+        </a>
+        <h1><i class="fas fa-shield-alt"></i> Privacy Policy</h1>
+        <p>How we protect and handle your information</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Last Updated -->
+        <div class="last-updated">
+            <strong><i class="fas fa-calendar-alt"></i> Last Updated:</strong> January 2, 2025
+        </div>
+
+        <!-- Table of Contents -->
+        <div class="toc">
+            <h3><i class="fas fa-list"></i> Table of Contents</h3>
+            <ul>
+                <li><a href="#introduction">1. Introduction</a></li>
+                <li><a href="#information-we-collect">2. Information We Collect</a></li>
+                <li><a href="#how-we-use">3. How We Use Your Information</a></li>
+                <li><a href="#data-security">4. Data Security</a></li>
+                <li><a href="#data-sharing">5. Data Sharing and Disclosure</a></li>
+                <li><a href="#your-rights">6. Your Rights and Choices</a></li>
+                <li><a href="#cookies">7. Cookies and Tracking</a></li>
+                <li><a href="#childrens-privacy">8. Children's Privacy</a></li>
+                <li><a href="#changes">9. Changes to This Policy</a></li>
+                <li><a href="#contact">10. Contact Us</a></li>
+            </ul>
+        </div>
+
+        <!-- Introduction -->
+        <div class="section" id="introduction">
+            <h2><i class="fas fa-info-circle"></i> 1. Introduction</h2>
+            <p>
+                Welcome to Philucky ("we," "our," or "us"). We are committed to protecting your privacy and personal information. 
+                This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile 
+                application and services (collectively, the "Service").
+            </p>
+            <div class="highlight-box">
+                <strong><i class="fas fa-exclamation-circle"></i> Important Notice:</strong> 
+                This app is designed for educational purposes to help users learn about casino games. No real money transactions 
+                occur within this app. For actual gaming with real money, please visit our main website.
+            </div>
+            <p>
+                By using the Philucky app, you agree to the collection and use of information in accordance with this policy. 
+                If you do not agree with our policies and practices, please do not use our Service.
+            </p>
+        </div>
+
+        <!-- Information We Collect -->
+        <div class="section" id="information-we-collect">
+            <h2><i class="fas fa-database"></i> 2. Information We Collect</h2>
+            
+            <h3>2.1 Information You Provide</h3>
+            <p>We collect the following information when you register for an account:</p>
+            <ul>
+                <li><strong>Phone Number:</strong> Required for account creation and login</li>
+                <li><strong>Email Address:</strong> Optional, for account recovery and communications</li>
+                <li><strong>Username:</strong> Your chosen display name</li>
+                <li><strong>Password:</strong> Encrypted and stored securely</li>
+            </ul>
+
+            <h3>2.2 Automatically Collected Information</h3>
+            <p>When you use our app, we may automatically collect:</p>
+            <ul>
+                <li><strong>Device Information:</strong> Device type, operating system, unique device identifiers</li>
+                <li><strong>Usage Data:</strong> Which guides you view, time spent in app, interaction patterns</li>
+                <li><strong>Log Data:</strong> IP address, browser type, access times, pages viewed</li>
+                <li><strong>App Performance Data:</strong> Crash reports, diagnostic information</li>
+            </ul>
+
+            <h3>2.3 Information We Do NOT Collect</h3>
+            <div class="highlight-box">
+                <strong><i class="fas fa-check-circle"></i> We do NOT collect:</strong>
+                <ul style="margin-top: 10px; margin-bottom: 0;">
+                    <li>Financial information (no payments in this app)</li>
+                    <li>Precise geolocation data</li>
+                    <li>Contact lists or photos</li>
+                    <li>Biometric data</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- How We Use -->
+        <div class="section" id="how-we-use">
+            <h2><i class="fas fa-tasks"></i> 3. How We Use Your Information</h2>
+            <p>We use your information for the following purposes:</p>
+            
+            <h3>3.1 Service Provision</h3>
+            <ul>
+                <li>To create and manage your account</li>
+                <li>To authenticate your identity when you log in</li>
+                <li>To provide access to educational gaming guides</li>
+                <li>To personalize your learning experience</li>
+            </ul>
+
+            <h3>3.2 Communication</h3>
+            <ul>
+                <li>To send account-related notifications</li>
+                <li>To respond to your inquiries and support requests</li>
+                <li>To send updates about new guides or features (with your consent)</li>
+            </ul>
+
+            <h3>3.3 Improvement and Analytics</h3>
+            <ul>
+                <li>To analyze app usage and improve our Service</li>
+                <li>To develop new features and content</li>
+                <li>To troubleshoot technical issues</li>
+                <li>To ensure platform security</li>
+            </ul>
+
+            <h3>3.4 Legal Compliance</h3>
+            <ul>
+                <li>To comply with applicable laws and regulations</li>
+                <li>To enforce our Terms of Service</li>
+                <li>To protect against fraud and abuse</li>
+            </ul>
+        </div>
+
+        <!-- Data Security -->
+        <div class="section" id="data-security">
+            <h2><i class="fas fa-lock"></i> 4. Data Security</h2>
+            <p>
+                We take the security of your personal information seriously and implement industry-standard security measures:
+            </p>
+            
+            <h3>4.1 Technical Measures</h3>
+            <ul>
+                <li><strong>Encryption:</strong> All passwords are hashed using bcrypt encryption</li>
+                <li><strong>Secure Transmission:</strong> Data transmitted over HTTPS/SSL protocols</li>
+                <li><strong>Authentication:</strong> JWT-based secure authentication system</li>
+                <li><strong>Database Security:</strong> MongoDB with access controls and encryption at rest</li>
+            </ul>
+
+            <h3>4.2 Administrative Measures</h3>
+            <ul>
+                <li>Limited employee access to personal data</li>
+                <li>Regular security audits and updates</li>
+                <li>Account approval process to prevent unauthorized access</li>
+            </ul>
+
+            <div class="highlight-box">
+                <strong><i class="fas fa-info-circle"></i> Please Note:</strong> 
+                While we strive to protect your information, no method of transmission over the internet is 100% secure. 
+                We cannot guarantee absolute security of your data.
+            </div>
+        </div>
+
+        <!-- Data Sharing -->
+        <div class="section" id="data-sharing">
+            <h2><i class="fas fa-share-alt"></i> 5. Data Sharing and Disclosure</h2>
+            
+            <h3>5.1 We Do NOT Sell Your Data</h3>
+            <p>
+                We do not sell, trade, or rent your personal information to third parties for marketing purposes.
+            </p>
+
+            <h3>5.2 Limited Sharing</h3>
+            <p>We may share your information only in the following circumstances:</p>
+            <ul>
+                <li><strong>Service Providers:</strong> Third-party services that help us operate (hosting, analytics)</li>
+                <li><strong>Legal Requirements:</strong> When required by law, court order, or government regulation</li>
+                <li><strong>Business Transfers:</strong> In connection with a merger, sale, or acquisition</li>
+                <li><strong>Protection of Rights:</strong> To protect our rights, safety, or property</li>
+            </ul>
+
+            <h3>5.3 Data Retention</h3>
+            <p>
+                We retain your personal information only as long as necessary to provide our services and comply with legal obligations. 
+                You may request deletion of your account at any time.
+            </p>
+        </div>
+
+        <!-- Your Rights -->
+        <div class="section" id="your-rights">
+            <h2><i class="fas fa-user-shield"></i> 6. Your Rights and Choices</h2>
+            <p>You have the following rights regarding your personal information:</p>
+            
+            <h3>6.1 Access and Correction</h3>
+            <ul>
+                <li>You can access and update your account information at any time</li>
+                <li>You can request a copy of your personal data</li>
+            </ul>
+
+            <h3>6.2 Deletion</h3>
+            <ul>
+                <li>You can request deletion of your account and personal data</li>
+                <li>Contact us at support@philucky.com to initiate deletion</li>
+                <li>Some information may be retained for legal compliance</li>
+            </ul>
+
+            <h3>6.3 Communication Preferences</h3>
+            <ul>
+                <li>You can opt-out of promotional communications</li>
+                <li>You cannot opt-out of essential service-related communications</li>
+            </ul>
+
+            <h3>6.4 Data Portability</h3>
+            <ul>
+                <li>You can request your data in a portable format</li>
+            </ul>
+        </div>
+
+        <!-- Cookies -->
+        <div class="section" id="cookies">
+            <h2><i class="fas fa-cookie-bite"></i> 7. Cookies and Tracking</h2>
+            
+            <h3>7.1 What We Use</h3>
+            <p>
+                Our app uses minimal tracking technologies:
+            </p>
+            <ul>
+                <li><strong>Authentication Tokens:</strong> To keep you logged in</li>
+                <li><strong>Local Storage:</strong> To store app preferences</li>
+                <li><strong>Analytics:</strong> To understand app usage (anonymized)</li>
+            </ul>
+
+            <h3>7.2 Third-Party Services</h3>
+            <p>We may use third-party analytics services that use cookies and similar technologies. These services are bound by their own privacy policies.</p>
+        </div>
+
+        <!-- Children's Privacy -->
+        <div class="section" id="childrens-privacy">
+            <h2><i class="fas fa-child"></i> 8. Children's Privacy</h2>
+            <p>
+                Our Service is not intended for children under the age of 18. We do not knowingly collect personal information 
+                from children under 18. If you are a parent or guardian and believe your child has provided us with personal 
+                information, please contact us immediately.
+            </p>
+            <div class="highlight-box">
+                <strong><i class="fas fa-exclamation-triangle"></i> Age Restriction:</strong> 
+                You must be 18 years or older to use this app. By using our Service, you represent that you are at least 18 years old.
+            </div>
+        </div>
+
+        <!-- Changes to Policy -->
+        <div class="section" id="changes">
+            <h2><i class="fas fa-sync-alt"></i> 9. Changes to This Privacy Policy</h2>
+            <p>
+                We may update our Privacy Policy from time to time. We will notify you of any changes by:
+            </p>
+            <ul>
+                <li>Posting the new Privacy Policy on this page</li>
+                <li>Updating the "Last Updated" date at the top</li>
+                <li>Sending you an email notification (for material changes)</li>
+            </ul>
+            <p>
+                You are advised to review this Privacy Policy periodically for any changes. Changes are effective when posted.
+            </p>
+        </div>
+
+        <!-- Contact -->
+        <div class="section" id="contact">
+            <h2><i class="fas fa-envelope"></i> 10. Contact Us</h2>
+            <p>
+                If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, 
+                please contact us:
+            </p>
+            
+            <div class="contact-section">
+                <h3>Get in Touch</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 15px;">
+                    We're here to help with any privacy-related questions
+                </p>
+                <div class="contact-links">
+                    <a href="mailto:privacy@philucky.com" class="contact-btn">
+                        <i class="fas fa-envelope"></i> privacy@philucky.com
+                    </a>
+                    <a href="mailto:support@philucky.com" class="contact-btn">
+                        <i class="fas fa-headset"></i> support@philucky.com
+                    </a>
+                    <a href="tel:+254700000000" class="contact-btn">
+                        <i class="fas fa-phone"></i> +254 700 000 000
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Information -->
+        <div class="section">
+            <h2><i class="fas fa-globe"></i> International Users</h2>
+            <p>
+                Our Service is operated from Kenya. If you are accessing our Service from outside Kenya, please be aware that 
+                your information may be transferred to, stored, and processed in Kenya where our servers are located and our 
+                central database is operated.
+            </p>
+            <p>
+                By using our Service, you consent to the transfer of your information to Kenya and the processing of your 
+                information in accordance with this Privacy Policy.
+            </p>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2025 Philucky. All rights reserved.</p>
+            <p style="margin-top: 10px;">
+                <a href="/app-guide">App Guide</a>
+                <a href="/terms">Terms of Service</a>
+                <a href="https://philucky.com">Main Website</a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
