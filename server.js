@@ -147,6 +147,16 @@ app.get('/app-guide', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'app-guide.html'));
 });
 
+// Privacy policy route
+app.get('/privacy', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'privacy.html'));
+});
+
+// Terms and conditions route
+app.get('/terms', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'terms.html'));
+});
+
 // Admin panel routes (serve HTML files with env injection)
 app.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'admin-login.html'));
